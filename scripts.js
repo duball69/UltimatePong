@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 
 // Monster dimensions
 const monsterWidth = 20;
-const monsterHeight = 100;
+const monsterHeight = 50;
 
 // Monster positions
 let monster1X = monsterWidth; // Starting position for player 1
@@ -22,7 +22,7 @@ let ballSpeedY = 5;
 // Scores
 let score1 = 0;
 let score2 = 0;
-const winningScore = 3;
+const winningScore = 1;
 
 // Paddle movement for player 1
 function moveMonster(e) {
@@ -85,14 +85,19 @@ function resetBall() {
     ballSpeedX = -ballSpeedX; // Reverse direction
 }
 
+
 // End the game
 function endGame() {
-    alert(score1 === winningScore ? 'Player 1 wins!' : 'Player 2 wins!');
+    const result = score1 === winningScore ? 'Player 1 wins!' : 'Player 2 wins!';
+    
+    // Show result in an alert box
+    alert(result);
+
     // Reload the page to restart the game
     location.reload();
 }
 
-// Render game objects
+
 function render() {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
