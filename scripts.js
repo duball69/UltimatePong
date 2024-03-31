@@ -24,6 +24,9 @@ let score1 = 0;
 let score2 = 0;
 const winningScore = 1;
 
+// Get player's name from local storage
+const playerName = localStorage.getItem('playerName') || "Player"; // Use "Player" if name is not set
+
 // Paddle movement for player 1
 function moveMonster(e) {
     const mouseX = e.clientX - canvas.offsetLeft;
@@ -56,12 +59,18 @@ function update() {
         ballSpeedY = -ballSpeedY;
     }
 
-    // Ball collisions with monsters
-    if (ballX - ballSize / 2 < monster1X + monsterWidth && ballY > monster1Y && ballY < monster1Y + monsterHeight) {
-        ballSpeedX = -ballSpeedX;
-    } else if (ballX + ballSize / 2 > monster2X && ballY > monster2Y && ballY < monster2Y + monsterHeight) {
-        ballSpeedX = -ballSpeedX;
+   // Ball collisions with monsters
+if (ballX - ballSize / 2 < monster1X + monsterWidth && ballY > monster1Y && ballY < monster1Y + monsterHeight) {
+    ballSpeedX = Math.abs(ballSpeedX); // Change direction
+} else if (ballX + ballSize / 2 > monster2X && ballY > monster2Y && ballY < monster2Y + monsterHeight) {
+    // Check if ball is stuck, if so, apply a minimum velocity to release it
+    if (Math.abs(ballSpeedX) < 2) {
+        ballSpeedX = ballSpeedX > 0 ? 2 : -2;
+    } else {
+        ballSpeedX = -ballSpeedX; // Change direction
     }
+}
+
 
     // Ball out of bounds
     if (ballX - ballSize / 2 < 0) {
@@ -85,10 +94,9 @@ function resetBall() {
     ballSpeedX = -ballSpeedX; // Reverse direction
 }
 
-
 // End the game
 function endGame() {
-    const result = score1 === winningScore ? 'Player 1 wins!' : 'Player 2 wins!';
+    const result = score1 === winningScore ? `${playerName} wins!` : 'Player 2 wins!';
     
     // Show result in an alert box
     alert(result);
@@ -96,7 +104,6 @@ function endGame() {
     // Reload the page to restart the game
     location.reload();
 }
-
 
 function render() {
     // Clear canvas
@@ -114,10 +121,10 @@ function render() {
     ctx.arc(ballX, ballY, ballSize / 2, 0, Math.PI * 2);
     ctx.fill();
 
-    // Draw scores
+    // Draw scores with player's name
     ctx.fillStyle = '#fff'; // Neon white
     ctx.font = '24px Arial';
-    ctx.fillText('Player 1: ' + score1, 20, 30);
+    ctx.fillText(`${playerName}: ${score1}`, 20, 30);
     ctx.fillText('Player 2: ' + score2, canvas.width - 150, 30);
 }
 

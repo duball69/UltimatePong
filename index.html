@@ -48,13 +48,33 @@
     <div class="container">
         <h1>Welcome to Monster Pong</h1>
         <p>Monster Pong is a fun and addictive twist on the classic game of Pong. Control your monster paddle and compete against the AI to score points!</p>
+        <!-- Add an input field for the player's name -->
+        <input type="text" id="playerName" placeholder="Enter your name" value="">
         <button onclick="startGame()">Start Game</button>
     </div>
     <script>
-        // Function to start the gamse
+        // Function to start the game
         function startGame() {
-            // Redirect to the game page
-            window.location.href = "game.html";
+            // Get the player's name from the input field
+            const playerName = document.getElementById('playerName').value;
+
+            // Check if the name is not empty
+            if (playerName.trim() !== '') {
+                // Store the player's name in local storage
+                localStorage.setItem('playerName', playerName);
+                
+                // Redirect to the game page
+                window.location.href = "game.html";
+            } else {
+                alert("Please enter your name to start the game.");
+            }
+        }
+
+        // Check if player's name exists in local storage
+        const storedName = localStorage.getItem('playerName');
+        if (storedName) {
+            // If exists, set the input field value to the stored name
+            document.getElementById('playerName').value = storedName;
         }
     </script>
 </body>
