@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <style>
-
-
         body {
             font-family: 'Orbitron', sans-serif; 
             background-color: #000;
@@ -34,18 +32,26 @@
             font-size: 18px;
             margin-bottom: 30px;
         }
-        button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background-color: #007bff;
+        
+        .back-to-play {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #0f0f0f; /* Dark gray */
             color: #fff;
             border: none;
-            cursor: pointer;
             border-radius: 5px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            width: 100%;
+            max-width: 200px;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .back-to-play:hover {
+            background-color: #444; /* Darker gray on hover */
         }
     </style>
 </head>
@@ -55,11 +61,12 @@
         <p>Monster Pong is a fun and addictive twist on the classic game of Pong. Control your monster paddle and compete against the AI to score points!</p>
         <!-- Add an input field for the player's name -->
         <input type="text" id="playerName" placeholder="Enter your name" value="">
-        <button onclick="startGame()">Start Game</button>
+        <button class="back-to-play" onclick="showAlertAndStart()">Start Game</button>
+        <button class="back-to-play" onclick="checkHighScores()">Check High Scores</button>
     </div>
     <script>
-        // Function to start the game
-        function startGame() {
+        // Function to show alert and start the game
+        function showAlertAndStart() {
             // Get the player's name from the input field
             const playerName = document.getElementById('playerName').value;
 
@@ -68,11 +75,18 @@
                 // Store the player's name in local storage
                 localStorage.setItem('playerName', playerName);
                 
+                
                 // Redirect to the game page
                 window.location.href = "game.html";
             } else {
                 alert("Please enter your name to start the game.");
             }
+        }
+
+        // Function to check high scores
+        function checkHighScores() {
+            // Redirect to the high scores page
+            window.location.href = "highscores.html";
         }
 
         // Check if player's name exists in local storage
