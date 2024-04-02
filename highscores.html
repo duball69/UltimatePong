@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Scores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif; /* Use Orbitron font family */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #0ff; /* Neon blue */
+            margin-top: 0;
+        }
+
+        #highScoresList {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        #highScoresList li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #0f0f0f; /* Dark gray */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        #highScoresList li:last-child {
+            margin-bottom: 0;
+        }
+
+        #highScoresList li::before {
+            content: '\25A0'; /* Square character */
+            margin-right: 10px;
+            font-size: 20px;
+            color: #f0f; /* Neon purple */
+        }
+
+        .back-to-play {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #0f0f0f; /* Dark gray */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .back-to-play:hover {
+            background-color: #444; /* Darker gray on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>High Scores</h1>
+    <ul id="highScoresList"></ul>
+    
+    <!-- Button to go back to play -->
+    <button class="back-to-play" onclick="goBack()">Back to Play</button>
+
+    <script>
+        // Retrieve high scores from local storage
+        const highScores = JSON.parse(localStorage.getItem('highScores')) || {};
+
+        // Display high scores
+        const highScoresList = document.getElementById('highScoresList');
+        for (const player in highScores) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${player}: ${highScores[player]} victories`;
+            highScoresList.appendChild(listItem);
+        }
+
+        // Function to go back to play
+        function goBack() {
+            window.location.href = "game.html"; // Redirect to the game page
+        }
+    </script>
+</body>
+</html>
